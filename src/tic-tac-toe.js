@@ -5,8 +5,6 @@ class TicTacToe {
         this.gameField[i] = ['-','-','-'];
       }
       this.current = 'x';
-      //console.log(this.gameField);
-      //console.log(this.current);
     }
 
     getCurrentPlayerSymbol() {
@@ -27,11 +25,35 @@ class TicTacToe {
     }
 
     isFinished() {
-
+      if (this.getWinner()||this.isDraw())
+        return true;
+        else return false;
     }
 
     getWinner() {
+        if (this.checkWin(this.gameField[0][0],this.gameField[0][1],this.gameField[0][2]))
+          return this.gameField[0][0];
+          else if (this.checkWin(this.gameField[1][0],this.gameField[1][1],this.gameField[1][2]))
+            return this.gameField[1][0];
+            else if (this.checkWin(this.gameField[2][0],this.gameField[2][1],this.gameField[2][2]))
+              return this.gameField[2][0];
+              else if (this.checkWin(this.gameField[0][0],this.gameField[1][0],this.gameField[2][0]))
+                return this.gameField[0][0];
+                else if (this.checkWin(this.gameField[0][1],this.gameField[1][1],this.gameField[2][1]))
+                  return this.gameField[0][1];
+                  else if (this.checkWin(this.gameField[0][2],this.gameField[1][2],this.gameField[2][2]))
+                    return this.gameField[0][2];
+                    else if (this.checkWin(this.gameField[0][0],this.gameField[1][1],this.gameField[2][2]))
+                      return this.gameField[0][0];
+                      else if (this.checkWin(this.gameField[2][0],this.gameField[1][1],this.gameField[0][2]))
+                        return this.gameField[2][0];
+                        else return  null;
+    }
 
+    checkWin(A,B,C) {
+      if ((A==B)&&(B==C)&&(A!='-'))
+        return true;
+        else return false;
     }
 
     noMoreTurns() {
@@ -41,12 +63,14 @@ class TicTacToe {
           if (this.gameField[i][j]!='-')
            count++;
         }
-      } 
+      }
       return (count==9) ?  true : false;
     }
 
     isDraw() {
-
+        if (this.noMoreTurns()&&(!this.getWinner()))
+          return true;
+          else return false;
     }
 
     getFieldValue(rowIndex, colIndex) {
